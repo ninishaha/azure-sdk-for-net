@@ -23,14 +23,25 @@ namespace Microsoft.Azure.Management.DataFactories.Models
     public class OracleSink : CopySink
     {
         /// <summary>
-        /// Oracle writer stored procedure name.
+        /// Not supported yet. Oracle writer stored procedure name.
         /// </summary>
         public string OracleWriterStoredProcedureName { get; set; }
 
         /// <summary>
-        /// Oracle writer table type.
+        /// Not supported yet. Oracle writer table type.
         /// </summary>
         public string OracleWriterTableType { get; set; }
+
+        /// <summary>
+        /// Optional. Writer cleanup script.
+        /// </summary>
+        public string SqlWriterCleanupScript { get; set; }
+
+        /// <summary>
+        /// Optional. Name of the SQL column which is used to save slice
+        /// identifier information, to support idempotent copy.
+        /// </summary>
+        public string SliceIdentifierColumnName { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the OracleSink class.

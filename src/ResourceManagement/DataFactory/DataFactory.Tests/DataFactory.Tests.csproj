@@ -29,6 +29,8 @@
     <Compile Include="Framework\JsonSamples\CustomLinkedServiceJsonSamples.cs" />
     <Compile Include="Framework\JsonSamples\HubJsonSamples.cs" />
     <Compile Include="Framework\JsonSamples\LinkedServiceJsonSamples.cs" />
+    <Compile Include="Framework\JsonSamples\PipelineWithChangedDateTimeTypedPropertiesJsonSamples.cs" />
+    <Compile Include="Framework\JsonSamples\PipelineWithExactTypedPropertiesJsonSamples.cs" />
     <Compile Include="Framework\JsonSamples\RegisteredActivityTypeJsonSamples.cs" />
     <Compile Include="Framework\JsonSamples\RegisteredComputeTypeJsonSamples.cs" />
     <Compile Include="Framework\JsonSamples\DatasetJsonSamples.cs" />

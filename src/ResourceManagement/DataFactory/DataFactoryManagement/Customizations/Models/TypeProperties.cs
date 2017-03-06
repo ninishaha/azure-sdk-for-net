@@ -23,18 +23,25 @@ namespace Microsoft.Azure.Management.DataFactories.Models
 {
     public abstract class TypeProperties : IRegisteredType
     {
+        internal static Func<Type, bool> IsDefaultDateParseHandlingBehaviorRequired = null; 
         private static readonly DictionaryConverter DictionaryConverter = new DictionaryConverter();
-
+        
         protected TypeProperties()
         {
         }
 
         internal static TypeProperties DeserializeObject(string json, Type type)
         {
-            return (TypeProperties)JsonConvert.DeserializeObject(
-                    json,
-                    type,
-                    Converters());
+            JsonSerializerSettings settings = new JsonSerializerSettings() {Converters = Converters()};
+            if (IsDefaultDateParseHandlingBehaviorRequired != null && !IsDefaultDateParseHandlingBehaviorRequired(type))
+            {
+                settings.DateParseHandling = DateParseHandling.None;
+            }
+
+            return (TypeProperties) JsonConvert.DeserializeObject(
+                json,
+                type,
+                settings);
         }
 
         internal string SerializeObject()

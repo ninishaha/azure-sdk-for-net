@@ -144,6 +144,20 @@ namespace DataFactory.Tests.Framework
             return settings.ContractResolver is CamelCasePropertyNamesContractResolver;
         }
 
+        public static void ValidateAreExactMatch(string expectedJson, string actualJson, string jsonPath)
+        {
+            string expected = JObject.Parse(expectedJson).SelectToken(jsonPath).ToString();
+            string actual = JObject.Parse(actualJson).SelectToken(jsonPath).ToString();
+            Assert.True(string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase), "Expecting the exact same JSON string.");
+        }
+
+        public static void ValidateAreNotExactMatch(string expectedJson, string actualJson, string jsonPath)
+        {
+            string expected = JObject.Parse(expectedJson).SelectToken(jsonPath).ToString();
+            string actual = JObject.Parse(actualJson).SelectToken(jsonPath).ToString();
+            Assert.False(string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase), "Expecting a different JSON string.");
+        }
+
         public static void ValidateAreSame(string expected, string actual, string description = null, bool ignoreCase = false, bool ignoreDefaultValues = false)
         {
             JObject expectedJson = JObject.Parse(expected);
@@ -471,6 +485,6 @@ namespace DataFactory.Tests.Framework
 
                 return DateTime.Parse(value, CultureInfo.InvariantCulture);
             }
-        } 
+        }
     }
 }

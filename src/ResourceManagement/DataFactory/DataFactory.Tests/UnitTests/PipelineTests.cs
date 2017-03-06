@@ -45,6 +45,22 @@ namespace DataFactory.Tests.UnitTests
             JsonSampleCommon.TestJsonSample(sampleInfo, this.TestPipelineJson);
         }
 
+        [Theory, ClassData(typeof(PipelineWithExactTypedPropertiesJsonSamples))]
+        [Trait(TraitName.TestType, TestType.Unit)]
+        [Trait(TraitName.Function, TestType.Conversion)]
+        public void PipelineJsonConstsToWrappedObjectTest_ExactTypeProperties(JsonSampleInfo sampleInfo)
+        {
+            JsonSampleCommon.TestJsonSample(sampleInfo, this.TestPipelineJsonWithExactTypeProperties);
+        }
+
+        [Theory, ClassData(typeof(PipelineWithChangedDateTimeTypedPropertiesJsonSamples))]
+        [Trait(TraitName.TestType, TestType.Unit)]
+        [Trait(TraitName.Function, TestType.Conversion)]
+        public void PipelineJsonConstsToWrappedObjectTest_ChangedDateTimeTypeProperties(JsonSampleInfo sampleInfo)
+        {
+            JsonSampleCommon.TestJsonSample(sampleInfo, this.TestPipelineJsonWithChangedDateTimeTypeProperties);
+        }
+
         [Theory, ClassData(typeof(PipelineJsonSamples))]
         [Trait(TraitName.TestType, TestType.Unit)]
         [Trait(TraitName.Function, TestType.Conversion)]
@@ -225,6 +241,29 @@ namespace DataFactory.Tests.UnitTests
 
             Assert.NotNull(hiveActivity);
             Assert.True(hiveActivity.GetDebugInfo == "Failure");
+        }
+
+        private void TestPipelineJsonWithExactTypeProperties(JsonSampleInfo sampleInfo)
+        {
+            string json = sampleInfo.Json;
+            Pipeline pipeline = this.ConvertToWrapper(json);
+            CoreModel.Pipeline actual = this.Operations.Converter.ToCoreType(pipeline);
+
+            string actualJson = Core.DataFactoryManagementClient.SerializeInternalPipelineToJson(actual);
+
+            JsonComparer.ValidateAreExactMatch(json, actualJson, "$..typeProperties");
+        }
+
+        private void TestPipelineJsonWithChangedDateTimeTypeProperties(JsonSampleInfo sampleInfo)
+        {
+            string json = sampleInfo.Json;
+            Pipeline pipeline = this.ConvertToWrapper(json);
+            CoreModel.Pipeline actual = this.Operations.Converter.ToCoreType(pipeline);
+
+            string actualJson = Core.DataFactoryManagementClient.SerializeInternalPipelineToJson(actual);
+
+            JsonComparer.ValidateAreSame(json, actualJson, ignoreDefaultValues: true);
+            JsonComparer.ValidateAreNotExactMatch(json, actualJson, "$..typeProperties");
         }
 
         private void TestPipelineJson(JsonSampleInfo sampleInfo)
