@@ -1690,7 +1690,7 @@ namespace DataFactory.Tests.Framework.JsonSamples
                     source: 
                     {
                         type: ""HttpSource"",
-                        requestTimeout: ""00:01:40"",
+                        httpRequestTimeout: ""00:01:40"",
                     },
                     sink: 
                     {
