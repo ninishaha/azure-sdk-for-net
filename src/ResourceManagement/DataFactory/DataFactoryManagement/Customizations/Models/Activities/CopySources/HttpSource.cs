@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.DataFactories.Models
         /// <summary>
         /// Optional. Specifies the timeout for an HTTP client to get a response. 
         /// </summary>
-        public TimeSpan RequestTimeout { get; set; }
+        public TimeSpan HttpRequestTimeout { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpSource" />
