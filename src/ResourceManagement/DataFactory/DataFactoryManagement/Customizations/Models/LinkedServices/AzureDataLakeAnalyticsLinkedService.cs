@@ -19,7 +19,7 @@ namespace Microsoft.Azure.Management.DataFactories.Models
     /// Azure Data Lake Analytics linked service.
     /// </summary>
     [AdfTypeName("AzureDataLakeAnalytics")]
-    public class AzureDataLakeAnalyticsLinkedService : OAuthLinkedServiceBase
+    public class AzureDataLakeAnalyticsLinkedService : LinkedServiceTypeProperties
     {
         /// <summary>
         /// Required. Data Lake Analytics account name.
@@ -43,6 +43,34 @@ namespace Microsoft.Azure.Management.DataFactories.Models
         public string ResourceGroupName { get; set; }
 
         /// <summary>
+        /// Optional. The ID of the service principal used to authenticate against the Azure Data Lake Analytics account.
+        /// </summary>
+        public string ServicePrincipalId { get; set; }
+
+        /// <summary>
+        /// Optional. The key of the service principal used to authenticate against the Azure Data Lake Analytics account.
+        /// </summary>
+        public string ServicePrincipalKey { get; set; }
+
+        /// <summary>
+        /// Optional. The name or ID of the tenant to which the service principal belongs.
+        /// </summary>
+        public string Tenant { get; set; }
+
+        /// <summary>
+        /// OAuth authorization that may be used by ADF to access
+        /// resources on your behalf. Each authorization is unique and may
+        /// only be used once.
+        /// </summary>
+        public string Authorization { get; set; }
+
+        /// <summary>
+        /// OAuth session ID from the OAuth authorization session.
+        /// Each session ID is unique and may only be used once.
+        /// </summary>
+        public string SessionId { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AzureDataLakeAnalyticsLinkedService"/> class.
         /// </summary>
         public AzureDataLakeAnalyticsLinkedService()
@@ -53,8 +81,7 @@ namespace Microsoft.Azure.Management.DataFactories.Models
         /// Initializes a new instance of the <see cref="AzureDataLakeAnalyticsLinkedService"/>
         /// class with required arguments.
         /// </summary>
-        public AzureDataLakeAnalyticsLinkedService(string authorization, string sessionId, string accountName)
-            : base(authorization, sessionId)
+        public AzureDataLakeAnalyticsLinkedService(string accountName) : this()
         {
             Ensure.IsNotNullOrEmpty(accountName, "accountName");
             this.AccountName = accountName;

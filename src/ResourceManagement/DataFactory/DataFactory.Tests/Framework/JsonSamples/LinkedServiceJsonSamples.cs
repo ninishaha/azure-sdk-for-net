@@ -712,5 +712,26 @@ namespace DataFactory.Tests.Framework.JsonSamples
         }
     }
 }";
+
+        [JsonSample]
+        public const string AzureDataLakeAnalyticsLinkedServiceWithServicePrincipal = @"
+{
+    name: ""LinkedService-AzureDataLakeAnalytics"",
+    properties:
+    {
+        type: ""AzureDataLakeAnalytics"",
+        description: ""test description"",
+        typeProperties:
+        {
+            accountName: ""account"",
+            dataLakeAnalyticsUri: ""microsoftkonacompute.net"",
+            subscriptionId: ""subId"",
+            resourceGroupName:  ""resourceGroup"",
+            servicePrincipalId: ""myServicePrincipalId"",
+            servicePrincipalKey: ""myServicePrincipalKey"",
+            tenant: ""myTenant"",
+        }
+    }
+}";
     }
 }
